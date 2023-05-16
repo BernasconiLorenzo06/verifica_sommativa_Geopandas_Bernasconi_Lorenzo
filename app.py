@@ -11,22 +11,20 @@ from shapely.geometry import Point
 quartieri = geopandas.read_file("Quartieri/NIL_WM.dbf")
 quartieri3857 = quartieri.to_crs(epsg=3857)
 
-
+df = pd.read_csv("https://raw.githubusercontent.com/BernasconiLorenzo06/colonnine/main/ricarica_colonnine%20(1).csv",sep = ";")
+gdf_colonnine = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.LONG_X_4326, df.LAT_Y_4326), crs="EPSG:4326")
+gdf_colonnine3857 = gdf_colonnine.to_crs(epsg=3857)
 
 @app.route('/')
 def home():
-    df = pd.read_csv("/content/drive/MyDrive/Colab Notebooks/ricarica_colonnine.csv", sep = ";")
-    gdf_colonnine = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.LONG_X_4326, df.LAT_Y_4326), crs="EPSG:4326")
-    gdf_colonnine3857 = gdf_colonnine.to_crs(epsg=3857)
+   
     quartier = list(quartieri3857["NIL"])
     quartier.sort()
     return render_template("home.html",lista = quartier)
 
 @app.route('/esercizio1', methods = ["GET"])
 def esercizio():
-    df = pd.read_csv("/content/drive/MyDrive/Colab Notebooks/ricarica_colonnine.csv", sep = ";")
-    gdf_colonnine = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.LONG_X_4326, df.LAT_Y_4326), crs="EPSG:4326")
-    gdf_colonnine3857 = gdf_colonnine.to_crs(epsg=3857)
+   
     
     quartiereInput = request.args.get("quartiereInput")
     quart = quartieri3857[quartieri3857["NIL"]== quartiereInput]
@@ -43,9 +41,7 @@ def esercizio():
 
 @app.route('/esercizio2', methods = ["GET"])
 def esercizio2():
-    df = pd.read_csv("/content/drive/MyDrive/Colab Notebooks/ricarica_colonnine.csv", sep = ";")
-    gdf_colonnine = geopandas.GeoDataFrame(df, geometry=geopandas.points_from_xy(df.LONG_X_4326, df.LAT_Y_4326), crs="EPSG:4326")
-    gdf_colonnine3857 = gdf_colonnine.to_crs(epsg=3857)
+    
     
     latitudine = float(request.args.get("latitudine"))
     longitudine = float(request.args.get("longitudine"))
