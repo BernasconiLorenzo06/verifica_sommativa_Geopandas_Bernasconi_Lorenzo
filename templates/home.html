@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>HOMEPAGE</title>
+</head>
+<body>
+    <h2>visualizzare sulla mappa anche i confini dei quartieri di Mialno.</h2>
+    <form action="/esercizio1" method = "GET">
+    
+        
+        <label for="ciao">Seleziona una regione da un menù: </label>
+        <select name = "provinciaInput" id = "ciao">
+            {% for r in lista %}
+                <option value = "{{r}}">{{r}}</option>
+            
+            {% endfor %}
+        </select><br>
+
+        <p><input type = "submit" value = "Clicca per conoscere i dati" /></p>
+    </form> <br> <br>
+    
+    <form action="/esercizio2" method = "GET">
+        <input type="text" name = "latitudine" ></input> <br>
+        <input type="text" name = "longitudine" ></input> <br>
+
+        <p><input type = "submit" value = "Clicca per conoscere i dati" /></p>
+    </form> <br> <br>
+
+</body>
+</html>
